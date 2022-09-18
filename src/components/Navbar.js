@@ -20,7 +20,8 @@ const Navbar = ({isLoggedIn, userId, dispatch}) => {
     <div>
       <nav>
         <a href="/">Home</a> | <a href="/leaderboard">Leaderboard</a> |{" "}
-        <a href="/new">New</a> | <span>{userId || "anonymous"}</span> |
+        <a href="/new">New</a> |{" "}
+        <span data-testid="nav-user-id">{userId || "anonymous"}</span> |
         {isLoggedIn ? (
           <button onClick={handleLogout}>Logout</button>
         ) : (
