@@ -1,7 +1,7 @@
 import React from "react";
 import {QUESTIONS, USERS} from "../utils/_TMP_DATA";
 
-const Pool = () => {
+const Poll = () => {
   const userId = "sarahedo";
   const data = USERS[userId];
   const question = QUESTIONS[data.questions[0]];
@@ -10,7 +10,7 @@ const Pool = () => {
   return (
     <div>
       <div>
-        <h1>Pool by {userId}</h1>
+        <h1>Poll by {userId}</h1>
         <img src={data.avatarURL} alt={`${userId}'s avatar`} />
         <h2>Would You Rather</h2>
         <ul>
@@ -32,4 +32,4 @@ const Pool = () => {
   );
 };
 
-export default Pool;
+export default Poll;

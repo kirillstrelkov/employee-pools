@@ -1,6 +1,6 @@
 import React from "react";
 
-const NewPool = () => {
+const NewPoll = () => {
   return (
     <div>
       <h1>Would You Rather</h1>
@@ -20,4 +20,4 @@ const NewPool = () => {
   );
 };
 
-export default NewPool;
+export default NewPoll;
