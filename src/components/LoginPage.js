@@ -1,23 +1,53 @@
-import React from "react";
+import React, {useRef} from "react";
+import {connect} from "react-redux";
+import {login} from "../actions/users";
 
-const Login = () => {
+const Login = ({userId, dispatch}) => {
+  const inputUser = useRef(null);
+  const inputPassword = useRef(null);
+
+  if (userId === null) {
+    // TODO: redirect to /
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(login(inputUser.current.value));
+    // TODO: deal with password
+  };
+
   return (
     <div>
       <h1>Employee Pools</h1>
       <h2>Log In</h2>
       <form>
         <div>
-          <label for="user">User</label>
-          <input id="user" placeholder="User" type="text"></input>
+          <label htmlFor="user">User</label>
+          <input
+            ref={inputUser}
+            id="user"
+            placeholder="User"
+            type="text"
+          ></input>
         </div>
         <div>
-          <label for="password">Password</label>
-          <input id="password" placeholder="Password" type="password"></input>
+          <label htmlFor="password">Password</label>
+          <input
+            ref={inputPassword}
+            id="password"
+            placeholder="Password"
+            type="password"
+          ></input>
         </div>
-        <button>Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
       </form>
     </div>
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+  userId: state.currentUser,
+});
+
+export default connect(mapStateToProps)(Login);
