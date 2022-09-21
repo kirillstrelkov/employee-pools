@@ -1,7 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {connect} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import {USERS} from "../utils/_TMP_DATA";
+import Loading from "./Loading";
 
-const Leaderboard = () => {
+const Leaderboard = ({isLoggedIn}) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedIn]);
+
+  if (!isLoggedIn) {
+    return <Loading />;
+  }
+
   return (
     <div>
       <table>
@@ -36,4 +51,9 @@ const Leaderboard = () => {
   );
 };
 
-export default Leaderboard;
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.usedId !== null,
+  userId: state.usedId,
+});
+
+export default connect(mapStateToProps)(Leaderboard);

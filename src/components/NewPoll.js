@@ -1,6 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {connect} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import Loading from "./Loading";
 
-const NewPoll = () => {
+const NewPoll = ({isLoggedIn}) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedIn]);
+
+  if (!isLoggedIn) {
+    return <Loading />;
+  }
+
   return (
     <div>
       <h1>Would You Rather</h1>
@@ -20,4 +35,9 @@ const NewPoll = () => {
   );
 };
 
-export default NewPoll;
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.usedId !== null,
+  userId: state.usedId,
+});
+
+export default connect(mapStateToProps)(NewPoll);
