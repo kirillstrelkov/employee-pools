@@ -6,9 +6,15 @@ import App from "./components/App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
+import {applyMiddleware} from "redux";
+import {composeWithDevTools} from "redux-devtools-extension";
+import thunkMiddleware from "redux-thunk";
 import reducer from "./reducers";
 
-const store = createStore(reducer);
+const store = createStore(
+  reducer,
+  composeWithDevTools(applyMiddleware(thunkMiddleware))
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
