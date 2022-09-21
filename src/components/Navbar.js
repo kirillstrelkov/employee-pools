@@ -33,8 +33,8 @@ const Navbar = ({isLoggedIn, userId, dispatch}) => {
 };
 
 const mapStateToProps = (state) => ({
-  isLoggedIn: state.currentUser !== null,
-  userId: state.currentUser,
+  isLoggedIn: state.usedId !== null,
+  userId: state.usedId,
 });
 
 export default connect(mapStateToProps)(Navbar);

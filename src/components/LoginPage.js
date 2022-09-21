@@ -13,7 +13,12 @@ const Login = ({userId, dispatch}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(login(inputUser.current.value));
+    const userId = inputUser.current.value;
+    if (userId) {
+      dispatch(login(userId));
+    } else {
+      console.log(`wrong user id ${userId}`);
+    }
     // TODO: deal with password
   };
 
@@ -47,7 +52,7 @@ const Login = ({userId, dispatch}) => {
 };
 
 const mapStateToProps = (state) => ({
-  userId: state.currentUser,
+  userId: state.usedId,
 });
 
 export default connect(mapStateToProps)(Login);
