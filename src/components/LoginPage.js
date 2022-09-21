@@ -1,14 +1,12 @@
 import React, {useRef} from "react";
 import {connect} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import {login} from "../actions/users";
 
 const Login = ({userId, dispatch}) => {
+  const navigate = useNavigate();
   const inputUser = useRef(null);
   const inputPassword = useRef(null);
-
-  if (userId === null) {
-    // TODO: redirect to /
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,6 +14,7 @@ const Login = ({userId, dispatch}) => {
     const userId = inputUser.current.value;
     if (userId) {
       dispatch(login(userId));
+      navigate("/");
     } else {
       console.log(`wrong user id ${userId}`);
     }

@@ -1,15 +1,18 @@
 import React from "react";
 import {connect} from "react-redux";
+import {Link, useNavigate} from "react-router-dom";
 import {logout} from "../actions/users";
 
 const Navbar = ({isLoggedIn, userId, dispatch}) => {
+  const navigate = useNavigate();
+
   if (userId === undefined) {
     return "";
   }
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // TODO:redirect to login page
+    navigate("/login");
   };
   const handleLogout = (e) => {
     e.preventDefault();
@@ -19,8 +22,8 @@ const Navbar = ({isLoggedIn, userId, dispatch}) => {
   return (
     <div>
       <nav>
-        <a href="/">Home</a> | <a href="/leaderboard">Leaderboard</a> |{" "}
-        <a href="/new">New</a> |{" "}
+        <Link to="/">Home</Link> | <Link to="/leaderboard">Leaderboard</Link> |{" "}
+        <Link to="/new">New</Link> |{" "}
         <span data-testid="nav-user-id">{userId || "anonymous"}</span> |
         {isLoggedIn ? (
           <button onClick={handleLogout}>Logout</button>
