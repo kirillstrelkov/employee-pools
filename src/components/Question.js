@@ -34,7 +34,6 @@ const Question = ({isLoggedIn, userId}) => {
   }
 
   const handleClick = (e) => {
-    console.log("not implemented");
     // TODO
   };
 

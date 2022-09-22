@@ -1,21 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {Provider} from "react-redux";
-import {createStore} from "redux";
 import App from "./components/App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
 import {BrowserRouter} from "react-router-dom";
-import {applyMiddleware} from "redux";
-import {composeWithDevTools} from "redux-devtools-extension";
-import thunkMiddleware from "redux-thunk";
-import reducer from "./reducers";
+import {setupStore} from "./app/store";
 
-const store = createStore(
-  reducer,
-  composeWithDevTools(applyMiddleware(thunkMiddleware))
-);
+const store = setupStore();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -1,24 +1,38 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {login} from "../actions/users";
+import {handleLogin} from "../actions/users";
 
 const Login = ({userId, dispatch}) => {
   const navigate = useNavigate();
   const inputUser = useRef(null);
   const inputPassword = useRef(null);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitDisabled(false);
 
     const userId = inputUser.current.value;
-    if (userId) {
-      dispatch(login(userId));
-      navigate("/");
-    } else {
-      console.log(`wrong user id ${userId}`);
-    }
-    // TODO: deal with password
+    const password = inputPassword.current.value;
+    dispatch(
+      handleLogin(
+        userId,
+        password,
+        () => {
+          navigate("/");
+          setSubmitDisabled(true);
+        },
+        () => {
+          alert("Wrong username or password!");
+          setSubmitDisabled(true);
+        }
+      )
+    );
+  };
+
+  const handleChange = (e) => {
+    setSubmitDisabled(!e.target.value);
   };
 
   return (
@@ -33,6 +47,7 @@ const Login = ({userId, dispatch}) => {
             id="user"
             placeholder="User"
             type="text"
+            onChange={handleChange}
           ></input>
         </div>
         <div>
@@ -44,7 +59,9 @@ const Login = ({userId, dispatch}) => {
             type="password"
           ></input>
         </div>
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit} disabled={submitDisabled}>
+          Submit
+        </button>
       </form>
     </div>
   );
