@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
+import {formatFloat} from "../utils/helper";
 import {QUESTIONS, USERS} from "../utils/_TMP_DATA";
 import Loading from "./Loading";
 
@@ -19,6 +20,8 @@ const Question = ({isLoggedIn, userId}) => {
       if (question) {
         setQuestionner(USERS[question.author]);
         const currentUser = USERS[userId];
+        console.log(currentUser);
+        console.log(question);
         if (currentUser.answers[id]) {
           setChosenOption(
             {optionOne: 1, optionTwo: 2}[currentUser.answers[id]]
@@ -37,6 +40,15 @@ const Question = ({isLoggedIn, userId}) => {
     // TODO
   };
 
+  const option1Voted = question.optionOne.votes.length;
+  const option2Voted = question.optionTwo.votes.length;
+  const option1VotedPercent = formatFloat(
+    (option1Voted / (option1Voted + option2Voted)) * 100
+  );
+  const option2VotedPercent = formatFloat(
+    (option2Voted / (option1Voted + option2Voted)) * 100
+  );
+
   return (
     <div>
       <div className="question">
@@ -54,6 +66,13 @@ const Question = ({isLoggedIn, userId}) => {
               <button onClick={handleClick} disabled={chosenOption}>
                 Click
               </button>
+              {chosenOption ? (
+                <span>
+                  {option1Voted} ({option1VotedPercent}%)
+                </span>
+              ) : (
+                ""
+              )}
             </div>
           </li>
           <li>
@@ -62,6 +81,13 @@ const Question = ({isLoggedIn, userId}) => {
               <button onClick={handleClick} disabled={chosenOption}>
                 Click
               </button>
+              {chosenOption ? (
+                <span>
+                  {option2Voted} ({option2VotedPercent}%)
+                </span>
+              ) : (
+                ""
+              )}{" "}
             </div>
           </li>
         </ul>
