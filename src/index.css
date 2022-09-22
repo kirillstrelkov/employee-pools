@@ -19,3 +19,7 @@ code {
 .avatar {
   height: 50px;
 }
+
+.question .option-selected {
+  background-color:lightgreen;
+}

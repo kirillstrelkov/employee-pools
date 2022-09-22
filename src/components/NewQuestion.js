@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import Loading from "./Loading";
 
-const NewPoll = ({isLoggedIn}) => {
+const NewQuestion = ({isLoggedIn}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,4 +40,4 @@ const mapStateToProps = (state) => ({
   userId: state.usedId,
 });
 
-export default connect(mapStateToProps)(NewPoll);
+export default connect(mapStateToProps)(NewQuestion);
