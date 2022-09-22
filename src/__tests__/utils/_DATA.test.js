@@ -1,13 +1,12 @@
 import {
-  questions,
-  users,
+  _getQuestions,
+  _getUsers,
   _saveQuestion,
   _saveQuestionAnswer,
 } from "../../utils/_DATA";
 
 describe("_DATA._saveQuestion", () => {
   it("to verify that the saved question is returned and all expected fields are populated when correctly formatted data is passed to the function", async () => {
-    // TODO:test('the data is peanut butter', async () => {
     const data = await _saveQuestion({
       optionOneText: "text1",
       optionTwoText: "text2",
@@ -21,6 +20,9 @@ describe("_DATA._saveQuestion", () => {
     expect(data.optionTwo).toHaveProperty("text", "text2");
     expect(data.optionOne).toHaveProperty("votes", []);
     expect(data.optionTwo).toHaveProperty("votes", []);
+
+    let questions = await _getQuestions();
+    expect(questions).toHaveProperty(data.id);
   });
 
   it("to verify that an error is returned if incorrect data is passed to the function", async () => {
@@ -46,14 +48,16 @@ describe("_DATA._saveQuestionAnswer", () => {
       qid: "8xf0y6ziyjabvozdd253nd",
       answer: "optionOne",
     };
+    let questions = await _getQuestions();
     expect(questions[obj.qid][obj.answer].votes).not.toContain(obj.authedUser);
 
     const res = await _saveQuestionAnswer(obj);
     expect(res).toBeTruthy();
 
-    // users updated
+    let users = await _getUsers();
     expect(users[obj.authedUser].answers).toHaveProperty(obj.qid, obj.answer);
-    // questions updated
+
+    questions = await _getQuestions();
     expect(questions[obj.qid][obj.answer].votes).toContain(obj.authedUser);
   });
 
