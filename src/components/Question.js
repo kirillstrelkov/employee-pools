@@ -20,8 +20,6 @@ const Question = ({isLoggedIn, userId}) => {
       if (question) {
         setQuestionner(USERS[question.author]);
         const currentUser = USERS[userId];
-        console.log(currentUser);
-        console.log(question);
         if (currentUser.answers[id]) {
           setChosenOption(
             {optionOne: 1, optionTwo: 2}[currentUser.answers[id]]
