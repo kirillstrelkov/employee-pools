@@ -12,9 +12,9 @@ describe("App", () => {
     renderWithProviders(<App />);
     expect(screen.getByTestId("nav-user-id")).toHaveTextContent(defaultUser);
 
-    const userId = "mtsamis";
+    const authedUser = "mtsamis";
     fireEvent.change(screen.getByPlaceholderText("User"), {
-      target: {value: userId},
+      target: {value: authedUser},
     });
     fireEvent.change(screen.getByPlaceholderText("Password"), {
       target: {value: "xyz123"},
@@ -26,7 +26,7 @@ describe("App", () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByTestId("nav-user-id")).toHaveTextContent(userId);
+      expect(screen.getByTestId("nav-user-id")).toHaveTextContent(authedUser);
     });
 
     fireEvent.click(screen.getByText("Logout"));

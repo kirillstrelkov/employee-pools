@@ -1,9 +1,9 @@
 import React, {useRef, useState} from "react";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {handleLogin} from "../actions/users";
+import {handleLogin} from "../actions/authedUser";
 
-const Login = ({userId, dispatch}) => {
+const Login = ({authedUser, dispatch}) => {
   const navigate = useNavigate();
   const inputUser = useRef(null);
   const inputPassword = useRef(null);
@@ -13,11 +13,11 @@ const Login = ({userId, dispatch}) => {
     e.preventDefault();
     setSubmitDisabled(false);
 
-    const userId = inputUser.current.value;
+    const authedUser = inputUser.current.value;
     const password = inputPassword.current.value;
     dispatch(
       handleLogin(
-        userId,
+        authedUser,
         password,
         () => {
           navigate("/");
@@ -68,7 +68,7 @@ const Login = ({userId, dispatch}) => {
 };
 
 const mapStateToProps = (state) => ({
-  userId: state.usedId,
+  authedUser: state.authedUser,
 });
 
 export default connect(mapStateToProps)(Login);

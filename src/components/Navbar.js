@@ -1,12 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
-import {logout} from "../actions/users";
+import {logout} from "../actions/authedUser";
 
-const Navbar = ({isLoggedIn, userId, dispatch}) => {
+const Navbar = ({isLoggedIn, authedUser, dispatch}) => {
   const navigate = useNavigate();
 
-  if (userId === undefined) {
+  if (authedUser === undefined) {
     return "";
   }
 
@@ -24,7 +24,7 @@ const Navbar = ({isLoggedIn, userId, dispatch}) => {
       <nav>
         <Link to="/">Home</Link> | <Link to="/leaderboard">Leaderboard</Link> |{" "}
         <Link to="/new">New</Link> |{" "}
-        <span data-testid="nav-user-id">{userId || "anonymous"}</span> |
+        <span data-testid="nav-user-id">{authedUser || "anonymous"}</span> |
         {isLoggedIn ? (
           <button onClick={handleLogout}>Logout</button>
         ) : (
@@ -36,8 +36,8 @@ const Navbar = ({isLoggedIn, userId, dispatch}) => {
 };
 
 const mapStateToProps = (state) => ({
-  isLoggedIn: state.usedId !== null,
-  userId: state.usedId,
+  isLoggedIn: state.authedUser !== null,
+  authedUser: state.authedUser,
 });
 
 export default connect(mapStateToProps)(Navbar);

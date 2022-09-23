@@ -20,6 +20,7 @@ code {
   height: 50px;
 }
 
-.question .option-selected {
+.question .option-selected,
+tr.highlight {
   background-color:lightgreen;
 }

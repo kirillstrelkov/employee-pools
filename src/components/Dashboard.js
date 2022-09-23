@@ -1,11 +1,10 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {QUESTIONS, USERS} from "../utils/_TMP_DATA";
 import Loading from "./Loading";
 import QuestionTiles from "./QuestionTiles";
 
-const Dashboard = ({isLoggedIn, userId}) => {
+const Dashboard = ({isLoggedIn, authedUser, users, questions}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,15 +13,15 @@ const Dashboard = ({isLoggedIn, userId}) => {
     }
   }, [isLoggedIn]);
 
-  if (!isLoggedIn) {
+  if (!isLoggedIn || !users || !questions) {
     return <Loading />;
   }
 
-  const data = USERS[userId];
-  const done = Object.keys(data.answers).map((id) => QUESTIONS[id]);
-  const newQuestions = Object.keys(QUESTIONS)
+  const data = users[authedUser];
+  const done = Object.keys(data.answers).map((id) => questions[id]);
+  const newQuestions = Object.keys(questions)
     .filter((id) => !done.includes(id))
-    .map((id) => QUESTIONS[id]);
+    .map((id) => questions[id]);
 
   return (
     <div>
@@ -39,8 +38,10 @@ const Dashboard = ({isLoggedIn, userId}) => {
 };
 
 const mapStateToProps = (state) => ({
-  isLoggedIn: state.usedId !== null,
-  userId: state.usedId,
+  isLoggedIn: state.authedUser !== null,
+  authedUser: state.authedUser,
+  users: state.users,
+  questions: state.questions,
 });
 
 export default connect(mapStateToProps)(Dashboard);

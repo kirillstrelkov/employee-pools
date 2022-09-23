@@ -1,10 +1,9 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {USERS} from "../utils/_TMP_DATA";
 import Loading from "./Loading";
 
-const Leaderboard = ({isLoggedIn}) => {
+const Leaderboard = ({isLoggedIn, authedUser, users}) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,9 +27,12 @@ const Leaderboard = ({isLoggedIn}) => {
           </tr>
         </thead>
         <tbody>
-          {Object.values(USERS).map((user) => (
-            <tr key={user.id}>
-              <td className="user">
+          {Object.values(users).map((user) => (
+            <tr
+              key={user.id}
+              className={user.id === authedUser ? "highlight" : ""}
+            >
+              <td>
                 <div>
                   <img
                     className="avatar"
@@ -52,8 +54,9 @@ const Leaderboard = ({isLoggedIn}) => {
 };
 
 const mapStateToProps = (state) => ({
-  isLoggedIn: state.usedId !== null,
-  userId: state.usedId,
+  isLoggedIn: state.authedUser !== null,
+  authedUser: state.authedUser,
+  users: state.users,
 });
 
 export default connect(mapStateToProps)(Leaderboard);

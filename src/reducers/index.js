@@ -1,6 +1,10 @@
 import {combineReducers} from "redux";
+import authedUserReducer from "./authedUser";
+import questionReducer from "./questions";
 import userReducer from "./users";
 
 export default combineReducers({
-  usedId: userReducer,
+  authedUser: authedUserReducer,
+  users: userReducer,
+  questions: questionReducer,
 });
