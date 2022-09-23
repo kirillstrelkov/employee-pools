@@ -4,6 +4,7 @@ import {Provider} from "react-redux";
 
 import {MemoryRouter} from "react-router";
 import {setupStore} from "../app/store";
+
 export function renderWithProviders(
   ui,
   {
