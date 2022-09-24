@@ -19,8 +19,9 @@ const Dashboard = ({isLoggedIn, authedUser, users, questions}) => {
 
   const data = users[authedUser];
   const done = Object.keys(data.answers).map((id) => questions[id]);
+  const doneIds = new Set(done.map((q) => q.id));
   const newQuestions = Object.keys(questions)
-    .filter((id) => !done.includes(id))
+    .filter((id) => !doneIds.has(id))
     .map((id) => questions[id]);
 
   return (

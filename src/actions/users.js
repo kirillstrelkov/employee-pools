@@ -1,10 +1,25 @@
 import {_getUsers} from "../utils/_DATA";
 
 export const RECEIVE_USERS = "RECEIVE_USERS";
+export const USER_ADD_QUESTION = "USER_ADD_QUESTION";
+export const USER_ANSWER_QUESTION = "USER_ANSWER_QUESTION";
 
 export const receiveUsers = (users) => ({
   type: RECEIVE_USERS,
   users,
+});
+
+export const addQuestion = (authedUser, question) => ({
+  type: USER_ADD_QUESTION,
+  authedUser,
+  question,
+});
+
+export const answerQuestion = (authedUser, qid, answer) => ({
+  type: USER_ANSWER_QUESTION,
+  authedUser,
+  qid,
+  answer,
 });
 
 export function handleReceiveUsers() {

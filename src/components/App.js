@@ -1,8 +1,7 @@
 import {useEffect} from "react";
 import {connect} from "react-redux";
 import {Route, Routes} from "react-router-dom";
-import {handleReceiveQuestions} from "../actions/questions";
-import {handleReceiveUsers} from "../actions/users";
+import {handleInitData} from "../actions/shared";
 import Dashboard from "./Dashboard";
 import ErrorPage from "./ErrorPage";
 import Leaderboard from "./Leaderboard";
@@ -13,8 +12,7 @@ import Question from "./Question";
 
 function App({dispatch}) {
   useEffect(() => {
-    dispatch(handleReceiveUsers());
-    dispatch(handleReceiveQuestions());
+    dispatch(handleInitData());
   }, []);
 
   return (

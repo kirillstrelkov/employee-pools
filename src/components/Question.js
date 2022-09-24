@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
+import {handleAnswerQuestion} from "../actions/shared";
+
 import {formatFloat} from "../utils/helper";
 import Loading from "./Loading";
 
-const Question = ({isLoggedIn, authedUser, users, questions}) => {
+const Question = ({isLoggedIn, authedUser, users, questions, dispatch}) => {
   const {id} = useParams();
   const navigate = useNavigate();
   const [question, setQuestion] = useState(null);
   const [questioneer, setQuestionner] = useState(null);
   const [chosenOption, setChosenOption] = useState(0);
+  const optionMappings = {optionOne: 1, optionTwo: 2};
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -20,20 +23,26 @@ const Question = ({isLoggedIn, authedUser, users, questions}) => {
         setQuestionner(users[question.author]);
         const currentUser = users[authedUser];
         if (currentUser.answers[id]) {
-          setChosenOption(
-            {optionOne: 1, optionTwo: 2}[currentUser.answers[id]]
-          );
+          setChosenOption(optionMappings[currentUser.answers[id]]);
         }
       }
     }
-  }, [isLoggedIn, question, questioneer, chosenOption]);
+  }, [isLoggedIn, question, questioneer, chosenOption, users]);
 
   if (!isLoggedIn || !question || !questioneer) {
     return <Loading />;
   }
 
-  const handleClick = (e) => {
-    // TODO
+  const handleClick = (e, option) => {
+    e.preventDefault();
+    setQuestion(null);
+    setChosenOption(optionMappings[option]);
+
+    dispatch(
+      handleAnswerQuestion(id, option, () => {
+        setQuestion(questions[id]);
+      })
+    );
   };
 
   const option1Voted = question.optionOne.votes.length;
@@ -59,7 +68,12 @@ const Question = ({isLoggedIn, authedUser, users, questions}) => {
           <li>
             <div className={chosenOption === 1 ? "option-selected" : ""}>
               <p>{question.optionOne.text}</p>
-              <button onClick={handleClick} disabled={chosenOption}>
+              <button
+                onClick={(e) => {
+                  handleClick(e, "optionOne");
+                }}
+                disabled={chosenOption}
+              >
                 Click
               </button>
               {chosenOption ? (
@@ -74,7 +88,12 @@ const Question = ({isLoggedIn, authedUser, users, questions}) => {
           <li>
             <div className={chosenOption === 2 ? "option-selected" : ""}>
               <p>{question.optionTwo.text}</p>
-              <button onClick={handleClick} disabled={chosenOption}>
+              <button
+                onClick={(e) => {
+                  handleClick(e, "optionTwo");
+                }}
+                disabled={chosenOption}
+              >
                 Click
               </button>
               {chosenOption ? (
