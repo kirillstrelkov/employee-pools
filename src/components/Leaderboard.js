@@ -1,3 +1,14 @@
+import {
+  Avatar,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -29,39 +40,41 @@ const Leaderboard = ({isLoggedIn, authedUser, users}) => {
   });
 
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>User</th>
-            <th>Answered</th>
-            <th>Created</th>
-          </tr>
-        </thead>
-        <tbody>
+    <TableContainer component={Paper}>
+      <Table aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>User</TableCell>
+            <TableCell align="right">Answered</TableCell>
+            <TableCell align="right">Created</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {sortedUsers.map((user) => (
-            <tr
+            <TableRow
               key={user.id}
               className={user.id === authedUser ? "highlight" : ""}
             >
-              <td>
+              <TableCell>
                 <div>
-                  <img
-                    className="avatar"
-                    src={user.avatarURL}
-                    alt={`${user.id} avatar`}
-                  />
-                  <div>{user.name}</div>
-                  <div>{user.id}</div>
+                  <Stack direction="row" spacing={2}>
+                    <Avatar src={user.avatarURL} alt={`${user.id} avatar`} />
+                    <Stack direction="column">
+                      <b>{user.name}</b>
+                      <span>{user.id}</span>
+                    </Stack>
+                  </Stack>
                 </div>
-              </td>
-              <td>{Object.keys(user.answers).length}</td>
-              <td>{user.questions.length}</td>
-            </tr>
+              </TableCell>
+              <TableCell align="right">
+                {Object.keys(user.answers).length}
+              </TableCell>
+              <TableCell align="right">{user.questions.length}</TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

@@ -1,3 +1,4 @@
+import {Box, Button, Container, TextField, Typography} from "@mui/material";
 import React, {useEffect, useRef} from "react";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -32,31 +33,34 @@ const NewQuestion = ({isLoggedIn, dispatch}) => {
   };
 
   return (
-    <div>
-      <h1>Would You Rather</h1>
-      <p>Create Your Own Pool</p>
-      <form>
-        <div>
-          <label htmlFor="option1">First Option</label>
-          <input
-            ref={inputOption1}
-            id="option1"
-            placeholder="Option One"
-            type="text"
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="option2">Second Option</label>
-          <input
-            ref={inputOption2}
-            id="option2"
-            placeholder="Option Two"
-            type="text"
-          ></input>
-        </div>
-        <button onClick={handleClick}>Submit</button>
-      </form>
-    </div>
+    <Container>
+      <Typography variant="h4">Would You Rather</Typography>
+      <Typography variant="body1">Create Your Own Pool</Typography>
+      <Box
+        component="form"
+        sx={{
+          "& > :not(style)": {m: 1},
+        }}
+      >
+        <TextField
+          inputRef={inputOption1}
+          id="option1"
+          placeholder="Option One"
+          type="text"
+          label="First Option"
+        ></TextField>
+        <TextField
+          inputRef={inputOption2}
+          id="option2"
+          placeholder="Option Two"
+          type="text"
+          label="Second Option"
+        ></TextField>
+      </Box>
+      <Button variant="contained" onClick={handleClick}>
+        Submit
+      </Button>
+    </Container>
   );
 };
 

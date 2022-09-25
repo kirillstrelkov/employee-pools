@@ -1,3 +1,13 @@
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
@@ -17,6 +27,8 @@ const Question = ({isLoggedIn, authedUser, users, questions, dispatch}) => {
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/login");
+    } else if (!questions[id]) {
+      navigate("/error");
     } else {
       setQuestion(questions[id]);
       if (question) {
@@ -55,27 +67,30 @@ const Question = ({isLoggedIn, authedUser, users, questions, dispatch}) => {
   );
 
   return (
-    <div>
-      <div className="question">
-        <h1>Poll by {questioneer.id}</h1>
-        <img
-          className="avatar"
-          src={questioneer.avatarURL}
-          alt={`${questioneer.id}'s avatar`}
-        />
-        <h2>Would You Rather</h2>
-        <ul>
-          <li>
-            <div className={chosenOption === 1 ? "option-selected" : ""}>
-              <p>{question.optionOne.text}</p>
-              <button
+    <Container className="question">
+      <Typography variant="h4">Poll by {questioneer.id}</Typography>
+      <img
+        className="avatar"
+        src={questioneer.avatarURL}
+        alt={`${questioneer.id}'s avatar`}
+      />
+      <Typography variant="h5">Would You Rather</Typography>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Stack direction="row" spacing={2}>
+          <Card className={chosenOption === 1 ? "option-selected" : ""}>
+            <CardContent>
+              <Typography variant="body1">{question.optionOne.text}</Typography>
+            </CardContent>
+            <CardActions>
+              <Button
+                variant="contained"
                 onClick={(e) => {
                   handleClick(e, "optionOne");
                 }}
                 disabled={chosenOption}
               >
                 Click
-              </button>
+              </Button>
               {chosenOption ? (
                 <span>
                   {option1Voted} ({option1VotedPercent}%)
@@ -83,19 +98,22 @@ const Question = ({isLoggedIn, authedUser, users, questions, dispatch}) => {
               ) : (
                 ""
               )}
-            </div>
-          </li>
-          <li>
-            <div className={chosenOption === 2 ? "option-selected" : ""}>
-              <p>{question.optionTwo.text}</p>
-              <button
+            </CardActions>
+          </Card>
+          <Card className={chosenOption === 2 ? "option-selected" : ""}>
+            <CardContent>
+              <Typography variant="body1">{question.optionTwo.text}</Typography>
+            </CardContent>
+            <CardActions>
+              <Button
+                variant="contained"
                 onClick={(e) => {
                   handleClick(e, "optionTwo");
                 }}
                 disabled={chosenOption}
               >
                 Click
-              </button>
+              </Button>
               {chosenOption ? (
                 <span>
                   {option2Voted} ({option2VotedPercent}%)
@@ -103,11 +121,11 @@ const Question = ({isLoggedIn, authedUser, users, questions, dispatch}) => {
               ) : (
                 ""
               )}{" "}
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+            </CardActions>
+          </Card>
+        </Stack>
+      </Box>
+    </Container>
   );
 };
 

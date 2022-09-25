@@ -1,3 +1,4 @@
+import {Box, Button, Container, TextField, Typography} from "@mui/material";
 import React, {useRef, useState} from "react";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -36,34 +37,39 @@ const Login = ({authedUser, dispatch}) => {
   };
 
   return (
-    <div>
-      <h1>Employee Pools</h1>
-      <h2>Log In</h2>
-      <form>
-        <div>
-          <label htmlFor="user">User</label>
-          <input
-            ref={inputUser}
-            id="user"
-            placeholder="User"
-            type="text"
-            onChange={handleChange}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            ref={inputPassword}
-            id="password"
-            placeholder="Password"
-            type="password"
-          ></input>
-        </div>
-        <button onClick={handleSubmit} disabled={submitDisabled}>
-          Submit
-        </button>
-      </form>
-    </div>
+    <Container>
+      <Typography variant="h4">Employee Pools</Typography>
+      <Typography variant="body1">Log In</Typography>
+      <Box
+        component="form"
+        sx={{
+          "& > :not(style)": {m: 1},
+        }}
+      >
+        <TextField
+          inputRef={inputUser}
+          id="user"
+          placeholder="User"
+          type="text"
+          onChange={handleChange}
+          label="User"
+        ></TextField>
+        <TextField
+          inputRef={inputPassword}
+          id="password"
+          placeholder="Password"
+          type="password"
+          label="Password"
+        ></TextField>
+      </Box>
+      <Button
+        variant="contained"
+        onClick={handleSubmit}
+        disabled={submitDisabled}
+      >
+        Submit
+      </Button>
+    </Container>
   );
 };
 

@@ -1,3 +1,12 @@
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Grid,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import {formatDate} from "../utils/helper";
@@ -11,11 +20,19 @@ const QuestionTile = ({author, timestamp, id}) => {
   };
 
   return (
-    <div>
-      <div>{author}</div>
-      <div>{formatDate(timestamp)}</div>
-      <button onClick={handleShow}>Show</button>
-    </div>
+    <Grid item>
+      <Card>
+        <CardHeader title={author}></CardHeader>
+        <CardContent>
+          <Typography variant="body1">{formatDate(timestamp)}</Typography>
+        </CardContent>
+        <CardActions>
+          <Button variant="contained" onClick={handleShow}>
+            Show
+          </Button>
+        </CardActions>
+      </Card>
+    </Grid>
   );
 };
 

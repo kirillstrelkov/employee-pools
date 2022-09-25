@@ -1,3 +1,4 @@
+import {Container} from "@mui/material";
 import {useEffect} from "react";
 import {connect} from "react-redux";
 import {Route, Routes} from "react-router-dom";
@@ -18,14 +19,16 @@ function App({dispatch}) {
   return (
     <div className="App">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="new" element={<NewQuestion />} />
-        <Route path="leaderboard" element={<Leaderboard />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="question/:id" element={<Question />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+      <Container>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="new" element={<NewQuestion />} />
+          <Route path="leaderboard" element={<Leaderboard />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="question/:id" element={<Question />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </Container>
     </div>
   );
 }

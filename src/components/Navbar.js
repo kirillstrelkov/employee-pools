@@ -1,10 +1,20 @@
+import {
+  Box,
+  Button,
+  Container,
+  Tab,
+  Tabs,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import {connect} from "react-redux";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {logout} from "../actions/authedUser";
 
 const Navbar = ({isLoggedIn, authedUser, dispatch}) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   if (authedUser === undefined) {
     return "";
@@ -20,18 +30,39 @@ const Navbar = ({isLoggedIn, authedUser, dispatch}) => {
   };
 
   return (
-    <div>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/leaderboard">Leaderboard</Link> |{" "}
-        <Link to="/new">New</Link> |{" "}
-        <span data-testid="nav-user-id">{authedUser || "anonymous"}</span> |
-        {isLoggedIn ? (
-          <button onClick={handleLogout}>Logout</button>
-        ) : (
-          <button onClick={handleLogin}>Login</button>
-        )}
-      </nav>
-    </div>
+    <Container>
+      <Tabs value={location.pathname} sx={{flexGrow: 1}}>
+        <Tab component={Link} value="/" to="/" label="Home" />
+        <Tab
+          component={Link}
+          value="/leaderboard"
+          to="/leaderboard"
+          label="Leaderboard"
+        />
+        <Tab component={Link} value="/new" to="/new" label="New" />
+        <Toolbar sx={{flexGrow: 1}}></Toolbar>
+        <Toolbar>
+          <Typography variant="body1" data-testid="nav-user-id">
+            {authedUser || "anonymous"}
+          </Typography>
+          <Box sx={{m: 1}} />
+          {isLoggedIn ? (
+            <Button
+              color="warning"
+              size="small"
+              variant="contained"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button variant="contained" onClick={handleLogin}>
+              Login
+            </Button>
+          )}
+        </Toolbar>
+      </Tabs>
+    </Container>
   );
 };
 
