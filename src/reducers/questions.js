@@ -20,7 +20,7 @@ export default function questionReducer(state = null, action) {
           [action.answer]: {
             ...state[action.qid][action.answer],
             votes: [
-              ...state[action.qid][action.answer]["votes"],
+              ...state[action.qid][action.answer].votes,
               action.authedUser,
             ],
           },

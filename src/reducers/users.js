@@ -5,9 +5,10 @@ import {
 } from "../actions/users";
 
 export default function userReducer(state = null, action) {
-  const authedUser = action.authedUser;
+  let authedUser;
   switch (action.type) {
     case USER_ADD_QUESTION:
+      authedUser = action.question.author;
       return {
         ...state,
         [authedUser]: {
@@ -16,6 +17,7 @@ export default function userReducer(state = null, action) {
         },
       };
     case USER_ANSWER_QUESTION:
+      authedUser = action.authedUser;
       return {
         ...state,
         [authedUser]: {
