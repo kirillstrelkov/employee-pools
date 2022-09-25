@@ -18,27 +18,15 @@ const Leaderboard = ({isLoggedIn, authedUser, users}) => {
 
   const sortedUsers = Object.values(users).sort((a, b) => {
     const aAnswers = Object.keys(a.answers).length;
-    const bAnswers = Object.keys(a.answers).length;
-    const aQuestions = b.questions.length;
+    const bAnswers = Object.keys(b.answers).length;
+    const aQuestions = a.questions.length;
     const bQuestions = b.questions.length;
-    console.log(aAnswers, bAnswers, aQuestions, bQuestions);
-    // return b.id.localeCompare(a.id);
-    // TODO: fix order
-
     if (aQuestions === bQuestions) {
-      return aAnswers - bAnswers;
+      return bAnswers - aAnswers;
     } else {
-      return aQuestions - bQuestions;
+      return bQuestions - aQuestions;
     }
   });
-  console.log(
-    sortedUsers.map((u) => [
-      u.id,
-      Object.keys(u.answers).length,
-      u.questions.length,
-    ])
-  );
-  console.log(sortedUsers);
 
   return (
     <div>
