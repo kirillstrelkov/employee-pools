@@ -29,9 +29,13 @@ const Navbar = ({isLoggedIn, authedUser, dispatch}) => {
     dispatch(logout());
   };
 
+  const tabValue = ["/", "/leaderboard", "/new"].includes(location.pathname)
+    ? location.pathname
+    : "/";
+
   return (
     <Container>
-      <Tabs value={location.pathname} sx={{flexGrow: 1}}>
+      <Tabs value={tabValue} sx={{flexGrow: 1}}>
         <Tab component={Link} value="/" to="/" label="Home" />
         <Tab
           component={Link}

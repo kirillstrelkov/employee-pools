@@ -20,7 +20,7 @@ const QuestionTile = ({author, timestamp, id}) => {
   };
 
   return (
-    <Grid item>
+    <Grid key={id} item>
       <Card>
         <CardHeader title={author}></CardHeader>
         <CardContent>
