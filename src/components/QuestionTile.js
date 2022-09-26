@@ -4,7 +4,6 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  Grid,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -20,19 +19,17 @@ const QuestionTile = ({author, timestamp, id}) => {
   };
 
   return (
-    <Grid key={id} item>
-      <Card>
-        <CardHeader title={author}></CardHeader>
-        <CardContent>
-          <Typography variant="body1">{formatDate(timestamp)}</Typography>
-        </CardContent>
-        <CardActions>
-          <Button variant="contained" onClick={handleShow}>
-            Show
-          </Button>
-        </CardActions>
-      </Card>
-    </Grid>
+    <Card>
+      <CardHeader title={author}></CardHeader>
+      <CardContent>
+        <Typography variant="body1">{formatDate(timestamp)}</Typography>
+      </CardContent>
+      <CardActions>
+        <Button variant="contained" onClick={handleShow}>
+          Show
+        </Button>
+      </CardActions>
+    </Card>
   );
 };
 

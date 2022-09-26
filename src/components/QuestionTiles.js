@@ -12,7 +12,9 @@ const QuestionTiles = ({questions}) => {
   return (
     <Grid container spacing={2}>
       {sortedQuestions.map(({id, author, timestamp}) => (
-        <QuestionTile id={id} author={author} timestamp={timestamp} />
+        <Grid item key={id}>
+          <QuestionTile id={id} author={author} timestamp={timestamp} />
+        </Grid>
       ))}
     </Grid>
   );
