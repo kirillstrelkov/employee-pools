@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {handleAnswerQuestion} from "../actions/shared";
 
 import {formatFloat} from "../utils/helper";
@@ -23,10 +23,11 @@ const Question = ({isLoggedIn, authedUser, users, questions, dispatch}) => {
   const [questioneer, setQuestionner] = useState(null);
   const [chosenOption, setChosenOption] = useState(0);
   const optionMappings = {optionOne: 1, optionTwo: 2};
+  const {pathname} = useLocation();
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate("/login");
+      navigate("/login", {state: {previousPath: pathname}});
     } else if (!questions[id]) {
       navigate("/error");
     } else {

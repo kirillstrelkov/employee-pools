@@ -14,7 +14,7 @@ import {logout} from "../actions/authedUser";
 
 const Navbar = ({isLoggedIn, authedUser, dispatch}) => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const {pathname} = useLocation();
 
   if (authedUser === undefined) {
     return "";
@@ -22,15 +22,17 @@ const Navbar = ({isLoggedIn, authedUser, dispatch}) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    navigate("/login");
+    if (pathname !== "/login") {
+      navigate("/login", {state: {previousPath: pathname}});
+    }
   };
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
   };
 
-  const tabValue = ["/", "/leaderboard", "/add"].includes(location.pathname)
-    ? location.pathname
+  const tabValue = ["/", "/leaderboard", "/add"].includes(pathname)
+    ? pathname
     : "/";
 
   return (

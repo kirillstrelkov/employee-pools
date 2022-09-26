@@ -1,7 +1,7 @@
 import {Container, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {sortQuestions} from "../utils/helper";
 import Loading from "./Loading";
 import QuestionTiles from "./QuestionTiles";
@@ -9,10 +9,11 @@ import QuestionTiles from "./QuestionTiles";
 const Dashboard = ({isLoggedIn, authedUser, users, questions}) => {
   const [alignment, setAlignment] = useState("new");
   const navigate = useNavigate();
+  const {pathname} = useLocation();
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate("/login");
+      navigate("/login", {state: {previousPath: pathname}});
     }
   }, [isLoggedIn]);
 

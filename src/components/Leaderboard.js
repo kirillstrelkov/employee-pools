@@ -11,15 +11,16 @@ import {
 } from "@mui/material";
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import Loading from "./Loading";
 
 const Leaderboard = ({isLoggedIn, authedUser, users}) => {
+  const {pathname} = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate("/login");
+      navigate("/login", {state: {previousPath: pathname}});
     }
   }, [isLoggedIn]);
 

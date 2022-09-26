@@ -1,7 +1,7 @@
 import {Box, Button, Container, TextField, Typography} from "@mui/material";
 import React, {useEffect, useRef} from "react";
 import {connect} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {showAlert} from "../actions/notification";
 import {handleCreateQuestion} from "../actions/shared";
 import Loading from "./Loading";
@@ -10,10 +10,11 @@ const NewQuestion = ({isLoggedIn, dispatch}) => {
   const navigate = useNavigate();
   const inputOption1 = useRef("");
   const inputOption2 = useRef("");
+  const {pathname} = useLocation();
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate("/login");
+      navigate("/login", {state: {previousPath: pathname}});
     }
   }, [isLoggedIn]);
 

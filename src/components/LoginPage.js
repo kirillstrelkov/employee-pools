@@ -1,11 +1,12 @@
 import {Box, Button, Container, TextField, Typography} from "@mui/material";
 import React, {useRef, useState} from "react";
 import {connect} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {handleLogin} from "../actions/authedUser";
 import {showAlert} from "../actions/notification";
 
 const Login = ({authedUser, dispatch}) => {
+  const {state} = useLocation();
   const navigate = useNavigate();
   const inputUser = useRef(null);
   const inputPassword = useRef(null);
@@ -22,7 +23,7 @@ const Login = ({authedUser, dispatch}) => {
         authedUser,
         password,
         () => {
-          navigate("/");
+          navigate(state.previousPath || "/");
           setSubmitDisabled(true);
         },
         () => {
