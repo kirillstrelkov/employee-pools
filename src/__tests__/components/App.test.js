@@ -3,33 +3,43 @@ import {act} from "react-dom/test-utils";
 import App from "../../components/App";
 import {renderWithProviders} from "../utils";
 
+const DEFAULT_USER = "anonymous";
+const VALID_USER = "mtsamis";
+const VALID_PASSWORD = "xyz123";
+
+const login = () => {
+  jest.useFakeTimers();
+
+  fireEvent.change(screen.getByPlaceholderText("User"), {
+    target: {value: VALID_USER},
+  });
+  fireEvent.change(screen.getByPlaceholderText("Password"), {
+    target: {value: VALID_PASSWORD},
+  });
+  fireEvent.click(screen.getByText("Submit"));
+
+  act(() => {
+    jest.advanceTimersByTime(5000);
+  });
+};
+
 describe("App", () => {
   it("user will login and logout", async () => {
     jest.useFakeTimers();
 
-    const defaultUser = "anonymous";
-
     renderWithProviders(<App />);
-    expect(screen.getByTestId("nav-user-id")).toHaveTextContent(defaultUser);
+    expect(screen.getByTestId("nav-user-id")).toHaveTextContent(DEFAULT_USER);
 
-    const authedUser = "mtsamis";
-    fireEvent.change(screen.getByPlaceholderText("User"), {
-      target: {value: authedUser},
-    });
-    fireEvent.change(screen.getByPlaceholderText("Password"), {
-      target: {value: "xyz123"},
-    });
-    fireEvent.click(screen.getByText("Submit"));
-
+    login();
     act(() => {
       jest.advanceTimersByTime(5000);
     });
 
     await waitFor(() => {
-      expect(screen.getByTestId("nav-user-id")).toHaveTextContent(authedUser);
+      expect(screen.getByTestId("nav-user-id")).toHaveTextContent(VALID_USER);
     });
 
     fireEvent.click(screen.getByText("Logout"));
-    expect(screen.getByTestId("nav-user-id")).toHaveTextContent(defaultUser);
+    expect(screen.getByTestId("nav-user-id")).toHaveTextContent(DEFAULT_USER);
   });
 });

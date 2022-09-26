@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorPage show apage 1`] = `
+<body>
+  <div>
+    <h5
+      class="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
+    >
+      Oops something went wrong...
+    </h5>
+  </div>
+</body>
+`;
