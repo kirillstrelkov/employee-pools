@@ -31,9 +31,6 @@ describe("App", () => {
     expect(screen.getByTestId("nav-user-id")).toHaveTextContent(DEFAULT_USER);
 
     login();
-    act(() => {
-      jest.advanceTimersByTime(5000);
-    });
 
     await waitFor(() => {
       expect(screen.getByTestId("nav-user-id")).toHaveTextContent(VALID_USER);
@@ -41,5 +38,29 @@ describe("App", () => {
 
     fireEvent.click(screen.getByText("Logout"));
     expect(screen.getByTestId("nav-user-id")).toHaveTextContent(DEFAULT_USER);
+  });
+
+  it("user are shown", async () => {
+    const {container} = renderWithProviders(<App />);
+    login();
+    await waitFor(() => {
+      expect(screen.getByTestId("nav-user-id")).toHaveTextContent(VALID_USER);
+    });
+
+    expect(screen.queryByText("Loading...")).not.toBeInTheDocument();
+    expect(screen.getByText("New Questions")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText("Leaderboard"));
+
+    await waitFor(() => {
+      expect(screen.getByTestId("leaderboard-id")).toHaveTextContent(
+        VALID_USER
+      );
+    });
+
+    const elements = container.querySelectorAll("td span");
+    expect([...elements].map((e) => e.textContent)).toEqual(
+      "sarahedo mtsamis tylermcginnis zoshikanlu".split(" ")
+    );
   });
 });

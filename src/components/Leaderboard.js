@@ -40,7 +40,7 @@ const Leaderboard = ({isLoggedIn, authedUser, users}) => {
   });
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} data-testid="leaderboard-id">
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -56,15 +56,13 @@ const Leaderboard = ({isLoggedIn, authedUser, users}) => {
               className={user.id === authedUser ? "highlight" : ""}
             >
               <TableCell>
-                <div>
-                  <Stack direction="row" spacing={2}>
-                    <Avatar src={user.avatarURL} alt={`${user.id} avatar`} />
-                    <Stack direction="column">
-                      <b>{user.name}</b>
-                      <span>{user.id}</span>
-                    </Stack>
+                <Stack direction="row" spacing={2}>
+                  <Avatar src={user.avatarURL} alt={`${user.id} avatar`} />
+                  <Stack direction="column">
+                    <b>{user.name}</b>
+                    <span>{user.id}</span>
                   </Stack>
-                </div>
+                </Stack>
               </TableCell>
               <TableCell align="right">
                 {Object.keys(user.answers).length}
