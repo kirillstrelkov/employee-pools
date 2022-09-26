@@ -47,5 +47,5 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 - [Redux](https://redux.js.org/) - A Predictable State Container for JS Apps
 - [React Redux](https://react-redux.js.org/) - Official React bindings for Redux
 - [React Router](https://reactrouter.com/en/main) - React Router enables "client side routing"
-- [MUI](https://maven.apache.org/) - The React component library you always wanted
+- [MUI](https://mui.com/) - The React component library you always wanted
 - [Jest](https://jestjs.io/) - Delightful JavaScript Testing
