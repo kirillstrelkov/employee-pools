@@ -1,10 +1,13 @@
-import React, {useEffect} from "react";
+import {Container, ToggleButton, ToggleButtonGroup} from "@mui/material";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {sortQuestions} from "../utils/helper";
 import Loading from "./Loading";
 import QuestionTiles from "./QuestionTiles";
 
 const Dashboard = ({isLoggedIn, authedUser, users, questions}) => {
+  const [alignment, setAlignment] = useState("new");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,23 +21,43 @@ const Dashboard = ({isLoggedIn, authedUser, users, questions}) => {
   }
 
   const data = users[authedUser];
-  const done = Object.keys(data.answers).map((id) => questions[id]);
-  const doneIds = new Set(done.map((q) => q.id));
-  const newQuestions = Object.keys(questions)
-    .filter((id) => !doneIds.has(id))
-    .map((id) => questions[id]);
+  const answeredQuestions = sortQuestions(
+    Object.keys(data.answers).map((id) => questions[id])
+  );
+  const answeredQuestionsIds = new Set(answeredQuestions.map((q) => q.id));
+  const newQuestions = sortQuestions(
+    Object.keys(questions)
+      .filter((id) => !answeredQuestionsIds.has(id))
+      .map((id) => questions[id])
+  );
+
+  const handleAlignment = (e, newAlignment) => {
+    setAlignment(newAlignment);
+  };
+
+  const filteredQuestions =
+    alignment === "new" ? newQuestions : answeredQuestions;
 
   return (
-    <div>
-      <div>
-        <h3>New Questions</h3>
-        <QuestionTiles questions={newQuestions}></QuestionTiles>
-      </div>
-      <div>
-        <h3>Done</h3>
-        <QuestionTiles questions={done}></QuestionTiles>
-      </div>
-    </div>
+    <Container>
+      <ToggleButtonGroup
+        value={alignment}
+        exclusive
+        onChange={handleAlignment}
+        sx={{m: 1}}
+        aria-label="text alignment"
+      >
+        <ToggleButton value="new" aria-label="left aligned">
+          New questions
+        </ToggleButton>
+        <ToggleButton value="answered" aria-label="right aligned">
+          Answered questions
+        </ToggleButton>
+      </ToggleButtonGroup>
+      <Container>
+        <QuestionTiles questions={filteredQuestions}></QuestionTiles>
+      </Container>
+    </Container>
   );
 };
 

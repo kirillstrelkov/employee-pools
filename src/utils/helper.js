@@ -9,3 +9,9 @@ export function formatDate(timestamp) {
 export function formatFloat(float) {
   return float.toFixed(2).toLocaleString(LOCALE);
 }
+
+export function sortQuestions(questions) {
+  return questions.sort((a, b) => {
+    return a.timestamp < b.timestamp;
+  });
+}
