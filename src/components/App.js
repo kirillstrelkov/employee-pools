@@ -9,6 +9,7 @@ import Leaderboard from "./Leaderboard";
 import LoginPage from "./LoginPage";
 import Navbar from "./Navbar";
 import NewQuestion from "./NewQuestion";
+import Notification from "./Notification";
 import Question from "./Question";
 
 function App({dispatch}) {
@@ -19,6 +20,7 @@ function App({dispatch}) {
   return (
     <div className="App">
       <Navbar />
+      <Notification />
       <Container>
         <Routes>
           <Route path="/" element={<Dashboard />} />

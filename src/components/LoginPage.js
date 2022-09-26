@@ -3,6 +3,7 @@ import React, {useRef, useState} from "react";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {handleLogin} from "../actions/authedUser";
+import {showAlert} from "../actions/notification";
 
 const Login = ({authedUser, dispatch}) => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Login = ({authedUser, dispatch}) => {
           setSubmitDisabled(true);
         },
         () => {
-          alert("Wrong username or password!");
+          dispatch(showAlert("Wrong username or password!"));
           setSubmitDisabled(true);
         }
       )

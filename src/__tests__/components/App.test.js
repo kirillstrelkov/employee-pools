@@ -7,14 +7,14 @@ const DEFAULT_USER = "anonymous";
 const VALID_USER = "mtsamis";
 const VALID_PASSWORD = "xyz123";
 
-const login = () => {
+const login = (user = VALID_USER, password = VALID_PASSWORD) => {
   jest.useFakeTimers();
 
   fireEvent.change(screen.getByPlaceholderText("User"), {
-    target: {value: VALID_USER},
+    target: {value: user},
   });
   fireEvent.change(screen.getByPlaceholderText("Password"), {
-    target: {value: VALID_PASSWORD},
+    target: {value: password},
   });
   fireEvent.click(screen.getByText("Submit"));
 
@@ -25,8 +25,6 @@ const login = () => {
 
 describe("App", () => {
   it("user will login and logout", async () => {
-    jest.useFakeTimers();
-
     renderWithProviders(<App />);
     expect(screen.getByTestId("nav-user-id")).toHaveTextContent(DEFAULT_USER);
 
@@ -40,7 +38,20 @@ describe("App", () => {
     expect(screen.getByTestId("nav-user-id")).toHaveTextContent(DEFAULT_USER);
   });
 
-  it("user are shown", async () => {
+  it("wrong login credentials", async () => {
+    renderWithProviders(<App />);
+    expect(screen.getByTestId("nav-user-id")).toHaveTextContent(DEFAULT_USER);
+
+    login(VALID_USER, "wrong");
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Wrong username or password!")
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("leaderboard is shown and ordered", async () => {
     const {container} = renderWithProviders(<App />);
     login();
     await waitFor(() => {
@@ -62,5 +73,25 @@ describe("App", () => {
     expect([...elements].map((e) => e.textContent)).toEqual(
       "sarahedo mtsamis tylermcginnis zoshikanlu".split(" ")
     );
+  });
+
+  it("answered poll is displayed correctly", async () => {
+    renderWithProviders(<App />);
+    login();
+    await waitFor(() => {
+      expect(screen.getByTestId("nav-user-id")).toHaveTextContent(VALID_USER);
+    });
+
+    fireEvent.click(screen.getAllByText("Show")[3]);
+
+    await waitFor(() => {
+      expect(screen.getByText("Would You Rather")).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("2 (66.67%)")).toBeInTheDocument();
+    expect(screen.getByText("1 (33.33%)")).toBeInTheDocument();
+    screen.getAllByText("Click").forEach((e) => {
+      expect(e).toBeDisabled();
+    });
   });
 });

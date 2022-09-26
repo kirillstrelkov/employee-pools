@@ -2,6 +2,7 @@ import {Box, Button, Container, TextField, Typography} from "@mui/material";
 import React, {useEffect, useRef} from "react";
 import {connect} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {showAlert} from "../actions/notification";
 import {handleCreateQuestion} from "../actions/shared";
 import Loading from "./Loading";
 
@@ -28,7 +29,7 @@ const NewQuestion = ({isLoggedIn, dispatch}) => {
     if (option1 && option2) {
       dispatch(handleCreateQuestion(option1, option2, navigate));
     } else {
-      alert("Please fill all input fields.");
+      dispatch(showAlert("Please fill all input fields."));
     }
   };
 

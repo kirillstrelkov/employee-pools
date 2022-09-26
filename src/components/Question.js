@@ -87,7 +87,7 @@ const Question = ({isLoggedIn, authedUser, users, questions, dispatch}) => {
                 onClick={(e) => {
                   handleClick(e, "optionOne");
                 }}
-                disabled={chosenOption}
+                disabled={!!chosenOption}
               >
                 Click
               </Button>
@@ -110,7 +110,7 @@ const Question = ({isLoggedIn, authedUser, users, questions, dispatch}) => {
                 onClick={(e) => {
                   handleClick(e, "optionTwo");
                 }}
-                disabled={chosenOption}
+                disabled={!!chosenOption}
               >
                 Click
               </Button>
