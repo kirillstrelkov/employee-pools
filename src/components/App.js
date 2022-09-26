@@ -24,10 +24,10 @@ function App({dispatch}) {
       <Container>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="new" element={<NewQuestion />} />
+          <Route path="add" element={<NewQuestion />} />
           <Route path="leaderboard" element={<Leaderboard />} />
           <Route path="login" element={<LoginPage />} />
-          <Route path="question/:id" element={<Question />} />
+          <Route path="questions/:question_id" element={<Question />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Container>

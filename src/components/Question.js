@@ -17,7 +17,7 @@ import {formatFloat} from "../utils/helper";
 import Loading from "./Loading";
 
 const Question = ({isLoggedIn, authedUser, users, questions, dispatch}) => {
-  const {id} = useParams();
+  const id = useParams().question_id;
   const navigate = useNavigate();
   const [question, setQuestion] = useState(null);
   const [questioneer, setQuestionner] = useState(null);

@@ -29,7 +29,7 @@ const Navbar = ({isLoggedIn, authedUser, dispatch}) => {
     dispatch(logout());
   };
 
-  const tabValue = ["/", "/leaderboard", "/new"].includes(location.pathname)
+  const tabValue = ["/", "/leaderboard", "/add"].includes(location.pathname)
     ? location.pathname
     : "/";
 
@@ -43,7 +43,7 @@ const Navbar = ({isLoggedIn, authedUser, dispatch}) => {
           to="/leaderboard"
           label="Leaderboard"
         />
-        <Tab component={Link} value="/new" to="/new" label="New" />
+        <Tab component={Link} value="/add" to="/add" label="New" />
         <Toolbar sx={{flexGrow: 1}}></Toolbar>
         <Toolbar>
           <Typography variant="body1" data-testid="nav-user-id">

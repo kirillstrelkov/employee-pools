@@ -15,7 +15,7 @@ const QuestionTile = ({author, timestamp, id}) => {
 
   const handleShow = (e) => {
     e.preventDefault();
-    navigate(`/question/${id}`);
+    navigate(`/questions/${id}`);
   };
 
   return (

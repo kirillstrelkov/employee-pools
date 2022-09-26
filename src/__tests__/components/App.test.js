@@ -59,7 +59,7 @@ describe("App", () => {
     });
 
     expect(screen.queryByText("Loading...")).not.toBeInTheDocument();
-    expect(screen.getByText("New Questions")).toBeInTheDocument();
+    expect(screen.getByText("New questions")).toBeInTheDocument();
 
     fireEvent.click(screen.getByText("Leaderboard"));
 
@@ -82,7 +82,8 @@ describe("App", () => {
       expect(screen.getByTestId("nav-user-id")).toHaveTextContent(VALID_USER);
     });
 
-    fireEvent.click(screen.getAllByText("Show")[3]);
+    fireEvent.click(screen.getByText("Answered questions"));
+    fireEvent.click(screen.getAllByText("Show")[0]);
 
     await waitFor(() => {
       expect(screen.getByText("Would You Rather")).toBeInTheDocument();
