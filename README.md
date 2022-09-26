@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Small Poll application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Intro
+
+App allows to create/answer polls from different users.
 
 ## Available Scripts
 
