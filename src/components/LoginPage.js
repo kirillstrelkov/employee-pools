@@ -40,7 +40,7 @@ const Login = ({authedUser, dispatch}) => {
 
   return (
     <Container>
-      <Typography variant="h4">Employee Pools</Typography>
+      <Typography variant="h4">Employee Polls</Typography>
       <Typography variant="body1">Log In</Typography>
       <Box
         component="form"

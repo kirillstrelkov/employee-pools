@@ -37,7 +37,7 @@ const NewQuestion = ({isLoggedIn, dispatch}) => {
   return (
     <Container>
       <Typography variant="h4">Would You Rather</Typography>
-      <Typography variant="body1">Create Your Own Pool</Typography>
+      <Typography variant="body1">Create Your Own Poll</Typography>
       <Box
         component="form"
         sx={{
