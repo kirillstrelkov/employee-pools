@@ -23,7 +23,11 @@ const Login = ({authedUser, dispatch}) => {
         authedUser,
         password,
         () => {
-          navigate(state.previousPath || "/");
+          navigate(
+            !state || !state.previousPath || state.previousPath === "/login"
+              ? "/"
+              : state.previousPath
+          );
           setSubmitDisabled(true);
         },
         () => {
